@@ -1,23 +1,83 @@
-<a href="index.html">voltar para o index</a>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <style>
+        body {
+            background-color: #fffacd; /* Amarelo claro */
+            color: #333; /* Texto escuro para contraste */
+            font-family: Arial, sans-serif;
+        }
+        h1, h2, h3 {
+            color: #ff6347; /* Toque colorido - vermelho tomate */
+        }
+        a {
+            color: #800080; /* Roxo */
+            font-weight: bold;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        button {
+            background-color: #ff6347; /* Vermelho tomate */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #cd5c5c; /* Vermelho mais escuro */
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html">Voltar para o Index</a>
 
-<h1>Cadastro</h1>
+    <h1>Cadastro</h1>
 
-<form action="/submit" method="post">
-    <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
-    <br><br>
+    <form action="/submit" method="post">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+        <br><br>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" placeholder="Digite seu email" required>
-    <br><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Digite seu email" required>
+        <br><br>
 
-    <label for="telefone">Telefone:</label>
-    <input type="tel" id="telefone" name="telefone" placeholder="Digite seu telefone">
-    <br><br>
+        <label for="telefone">Telefone:</label>
+        <input type="tel" id="telefone" name="telefone" placeholder="Digite seu telefone">
+        <br><br>
 
-    <label for="mensagem">Mensagem:</label>
-    <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem" rows="4"></textarea>
-    <br><br>
+        <label for="mensagem">Mensagem:</label>
+        <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem" rows="4"></textarea>
+        <br><br>
 
-    <button type="submit">Enviar</button>
-</form>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <hr>
+
+    <h2>Galeria de Mídias</h2>
+
+    <!-- Imagem -->
+    <h3>Imagem</h3>
+    <img src="https://via.placeholder.com/300" alt="Imagem de exemplo" width="300">
+
+    <!-- Vídeo -->
+    <h3>Vídeo</h3>
+    <video controls width="400">
+        <source src="video-exemplo.mp4" type="video/mp4">
+        Seu navegador não suporta a reprodução de vídeos.
+    </video>
+
+    <!-- Áudio -->
+    <h3>Áudio</h3>
+    <audio controls>
+        <source src="audio-exemplo.mp3" type="audio/mpeg">
+        Seu navegador não suporta a reprodução de áudio.
+    </audio>
+</body>
+</html>
