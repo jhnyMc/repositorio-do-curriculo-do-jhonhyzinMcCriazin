@@ -3,96 +3,455 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produtos</title>
+    <title>Nossos Produtos - Catálogo Completo</title>
+    
+    <!-- CSS Externo -->
+    <link rel="stylesheet" href="estilos-produtos.css">
+    
+    <!-- CSS Incorporado -->
     <style>
-        body {
-            background-color: #fffacd; /* Amarelo claro */
-            color: #333; /* Texto escuro para contraste */
-            font-family: Arial, sans-serif;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        h1 {
-            color: #ff6347; /* Toque colorido - vermelho tomate */
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-areas: 
+                "header header"
+                "nav nav"
+                "aside main"
+                "footer footer";
+            grid-template-columns: 280px 1fr;
+            grid-template-rows: auto auto 1fr auto;
+            min-height: calc(100vh - 40px);
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 50px rgba(0,0,0,0.3);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        
+        header {
+            grid-area: header;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        nav {
+            grid-area: nav;
+            background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        aside {
+            grid-area: aside;
+            background: linear-gradient(180deg, #FFE66D 0%, #FFD166 100%);
+            padding: 30px 25px;
+            border-right: 4px solid #FF9E6D;
+        }
+        
+        main {
+            grid-area: main;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 35px;
+        }
+        
+        footer {
+            grid-area: footer;
+            background: linear-gradient(135deg, #1A535C 0%, #0D3B45 100%);
+            color: white;
+            padding: 30px 25px;
             text-align: center;
         }
-        a {
-            color: #800080; /* Roxo */
+        
+        .menu-dinamico {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            list-style: none;
+            padding: 0 25px;
+        }
+        
+        .menu-dinamico a {
+            display: block;
+            padding: 14px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
             text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.4s ease;
+            font-weight: 600;
+            border: 2px solid transparent;
+        }
+        
+        .menu-dinamico a:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .produtos-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .produtos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .produto-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #FF8E53;
+        }
+        
+        .produto-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .produto-imagem {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .produto-info {
+            padding: 25px;
+        }
+        
+        .produto-preco {
+            font-size: 1.8em;
+            color: #FF8E53;
             font-weight: bold;
+            margin: 15px 0;
         }
-        a:hover {
-            text-decoration: underline;
+        
+        .botao-produto {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #FF8E53, #FF6B6B);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
         }
+        
+        .botao-produto:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 142, 83, 0.4);
+        }
+        
+        .aside-content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 2em;
+            color: #1A535C;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #FF8E53;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            font-size: 1.5em;
+            color: #1A535C;
+            margin-bottom: 15px;
+        }
+        
+        ul {
+            padding-left: 25px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        mark {
+            background: linear-gradient(135deg, #FFE66D, #FFD166);
+            padding: 4px 8px;
+            border-radius: 6px;
+            color: #1A535C;
+            font-weight: 600;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.4);
+        }
+        
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
+        
         th, td {
-            border: 1px solid #333;
-            padding: 10px;
-            text-align: center;
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
         }
+        
         th {
-            background-color: #ff6347; /* Vermelho tomate */
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
             color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-areas: 
+                    "header"
+                    "nav"
+                    "main"
+                    "aside"
+                    "footer";
+                grid-template-columns: 1fr;
+            }
+            
+            .produtos-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .menu-dinamico {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .menu-dinamico a {
+                width: 200px;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
-    <a href="index.html" style="color: #800080; font-weight: bold; text-decoration: none;">Voltar para o Index</a>
-
-    <h1 style="color: #ff6347;">Produtos</h1>
-    <ul>
-        <li><a href="produtodograu1.html" style="color: #800080; text-decoration: none;">Produto do Grau 1</a></li>
-        <li><a href="produtodograu2.html" style="color: #800080; text-decoration: none;">Produto do Grau 2</a></li>
-        <li><a href="produtodograu3.html" style="color: #800080; text-decoration: none;">Produto do Grau 3</a></li>
-        <li><a href="produtodograu4.html" style="color: #800080; text-decoration: none;">Produto do Grau 4</a></li>
-    </ul>
+    <div class="container">
+        <header>
+            <!-- CSS Inline -->
+            <h1 style="text-shadow: 3px 3px 6px rgba(0,0,0,0.3);">
+                <mark>Nossos Produtos</mark>
+            </h1>
+            <p style="font-size: 1.3em; margin-top: 10px;">Descubra nossa linha completa de produtos naturais</p>
+        </header>
+        
+        <nav>
+            <ul class="menu-dinamico">
+                <li><a href="index.html">🏠 Página Inicial</a></li>
+                <li><a href="curriculo.html">📄 Currículo</a></li>
+                <li><a href="cadastro.html">📝 Cadastro</a></li>
+                <li><a href="sobre.html">👨‍💼 Sobre</a></li>
+                <li><a href="produtos.html" style="background: rgba(255,255,255,0.4);">📦 Todos Produtos</a></li>
+                <li><a href="minhasparceirias.html">🤝 Parceiros</a></li>
+                <li><a href="formulario.html">📋 Formulário</a></li>
+            </ul>
+        </nav>
+        
+        <aside>
+            <div class="aside-content">
+                <h3>🏷️ Categorias</h3>
+                <ul>
+                    <li>🍹 Bebidas Naturais</li>
+                    <li>🥪 Lanches Saudáveis</li>
+                    <li>🍦 Sobremesas Light</li>
+                    <li>🌿 Produtos Orgânicos</li>
+                    <li>💪 Suplementos Naturais</li>
+                </ul>
+            </div>
+            
+            <div class="aside-content">
+                <h3>⭐ Destaques</h3>
+                <ul>
+                    <li>🚀 Mais Vendidos</li>
+                    <li>🆕 Lançamentos</li>
+                    <li>💚 Opções Veganas</li>
+                    <li>⚡ Energéticos Naturais</li>
+                    <li>🔥 Promoções Especiais</li>
+                </ul>
+            </div>
+            
+            <div class="aside-content">
+                <h3>🏆 Vantagens</h3>
+                <p>✅ Produtos 100% naturais<br>
+                   ✅ Entregas rápidas<br>
+                   ✅ Qualidade garantida<br>
+                   ✅ Preços competitivos<br>
+                   ✅ Atendimento personalizado</p>
+            </div>
+        </aside>
+        
+        <main>
+            <div class="produtos-container">
+                <h2>📦 Nossos Produtos em Destaque</h2>
+                
+                <div class="produtos-grid">
+                    <div class="produto-card">
+                        <img src="https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" 
+                             alt="Vitaminado Mix de Frutas" class="produto-imagem">
+                        <div class="produto-info">
+                            <h3>🍹 Vitaminado Mix de Frutas</h3>
+                            <p>Bebida energética natural com combinação exclusiva de frutas frescas.</p>
+                            <div class="produto-preco">R$ 8,50</div>
+                            <a href="produtodograu4.html" class="botao-produto">Ver Detalhes</a>
+                        </div>
+                    </div>
+                    
+                    <div class="produto-card">
+                        <img src="https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" 
+                             alt="Sanduíche Natural" class="produto-imagem">
+                        <div class="produto-info">
+                            <h3>🥪 Sanduíche Natural Premium</h3>
+                            <p>Sanduíche leve e saudável com ingredientes frescos e pão integral.</p>
+                            <div class="produto-preco">R$ 12,00</div>
+                            <a href="produtodograu3.html" class="botao-produto">Ver Detalhes</a>
+                        </div>
+                    </div>
+                    
+                    <div class="produto-card">
+                        <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" 
+                             alt="Dindin Refrescante" class="produto-imagem">
+                        <div class="produto-info">
+                            <h3>🍦 Dindin Refrescante</h3>
+                            <p>Sorvete natural de frutas, perfeito para os dias quentes.</p>
+                            <div class="produto-preco">R$ 6,00</div>
+                            <a href="produtodograu2.html" class="botao-produto">Ver Detalhes</a>
+                        </div>
+                    </div>
+                    
+                    <div class="produto-card">
+                        <img src="https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" 
+                             alt="Suco Natural" class="produto-imagem">
+                        <div class="produto-info">
+                            <h3>🍎 Suco Natural Detox</h3>
+                            <p>Suco verde detox com couve, abacaxi, hortelã e gengibre.</p>
+                            <div class="produto-preco">R$ 7,00</div>
+                            <a href="produtodograu1.html" class="botao-produto">Ver Detalhes</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <h2 style="margin-top: 50px;">📊 Tipos de Arquivos dos Produtos</h2>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo de Arquivo</th>
+                            <th>Descrição</th>
+                            <th>Exemplos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><mark>JavaScript (.js)</mark></td>
+                            <td>Scripts que adicionam interatividade e funcionalidades dinâmicas.</td>
+                            <td>produtos/script.js, produtos/valida-form.js</td>
+                        </tr>
+                        <tr>
+                            <td><mark>CSS (.css)</mark></td>
+                            <td>Estilos visuais para layout, cores e design do site.</td>
+                            <td>produtos/estilo.css, produtos/responsivo.css</td>
+                        </tr>
+                        <tr>
+                            <td><mark>HTML (.html)</mark></td>
+                            <td>Arquivos de marcação para estruturar as páginas dos produtos.</td>
+                            <td>produtos/index.html, produtos/detalhes.html</td>
+                        </tr>
+                        <tr>
+                            <td><mark>Imagens (.jpg, .png, .svg)</mark></td>
+                            <td>Fotos e gráficos dos produtos para ilustrar o site.</td>
+                            <td>produtos/imagem1.jpg, produtos/logo.png</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <a href="index.html" class="back-link">
+                    ← Voltar para a Página Inicial
+                </a>
+            </div>
+        </main>
+        
+        <footer>
+            <p style="font-size: 1.2em; margin-bottom: 10px;">
+                &copy; 2025 Natural Foods. Todos os direitos reservados.
+            </p>
+            <p style="opacity: 0.9;">
+                Produtos Naturais • Qualidade • Saúde • Bem-estar
+            </p>
+        </footer>
+    </div>
 </body>
 </html>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <title>Arquivos da Pasta Produtos</title>
-</head>
-<body style="background-color: yellow; color: black; font-family: Arial, sans-serif;">
-
-  <h1>Arquivos da Pasta <em>produtos</em></h1>
-
-  <table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%; max-width: 800px;">
-    <thead>
-      <tr style="background-color: purple; color: yellow;">
-        <th>Tipo de Arquivo</th>
-        <th>Descrição</th>
-        <th>Exemplos</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><mark>JavaScript (.js)</mark></td>
-        <td>Scripts que adicionam interatividade e funcionalidades dinâmicas.</td>
-        <td>produtos/script.js, produtos/valida-form.js</td>
-      </tr>
-      <tr>
-        <td><mark>CSS (.css)</mark></td>
-        <td>Estilos visuais para layout, cores e design do site.</td>
-        <td>produtos/estilo.css, produtos/responsivo.css</td>
-      </tr>
-      <tr>
-        <td><mark>HTML (.html)</mark></td>
-        <td>Arquivos de marcação para estruturar as páginas dos produtos.</td>
-        <td>produtos/index.html, produtos/detalhes.html</td>
-      </tr>
-      <tr>
-        <td><mark>Imagens (.jpg, .png, .svg)</mark></td>
-        <td>Fotos e gráficos dos produtos para ilustrar o site.</td>
-        <td>produtos/imagem1.jpg, produtos/logo.png</td>
-      </tr>
-    </tbody>
-  </table>
-
-  
-</body>
-</html>
-

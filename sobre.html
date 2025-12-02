@@ -3,53 +3,553 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sobre Nós</title>
+    <title>Sobre Nós - Natural Foods</title>
+    
+    <!-- CSS "Externo" Simulado dentro do mesmo arquivo -->
+    <style id="css-externo">
+        /* Estilos CSS "Externos" para a página Sobre Nós */
+        
+        /* Animações para elementos interativos */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .valor-card {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .valor-card:hover {
+            animation: none;
+        }
+        
+        .valor-card:nth-child(even) {
+            animation-delay: 0.5s;
+        }
+        
+        .valor-card:nth-child(3n) {
+            animation-delay: 1s;
+        }
+        
+        /* Estilos para melhorar a acessibilidade */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Estilos para impressão */
+        @media print {
+            .menu-dinamico, .back-link, .galeria-container {
+                display: none;
+            }
+            
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+            
+            .valor-card {
+                break-inside: avoid;
+                margin-bottom: 20px;
+            }
+        }
+        
+        /* Estilos para elementos de foco */
+        a:focus, button:focus {
+            outline: 3px solid #FF1493;
+            outline-offset: 2px;
+        }
+        
+        /* Efeitos especiais para títulos */
+        h2 {
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(135deg, #FF1493, #FF69B4);
+            border-radius: 2px;
+        }
+        
+        /* Estilo para citações */
+        .missao-card p:last-child,
+        .visao-card p:last-child {
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .missao-card p:last-child::before,
+        .visao-card p:last-child::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: -5px;
+            font-size: 2em;
+            color: #FF1493;
+            font-family: Georgia, serif;
+        }
+        
+        /* Efeitos de brilho para cards */
+        .valor-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #FF1493, #FF69B4, #32CD32, #FFD700);
+            border-radius: 17px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .valor-card:hover::before {
+            opacity: 1;
+        }
+    </style>
+    
+    <!-- CSS Incorporado -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #8A2BE2 0%, #4B0082 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-areas: 
+                "header header"
+                "nav nav"
+                "aside main"
+                "footer footer";
+            grid-template-columns: 280px 1fr;
+            grid-template-rows: auto auto 1fr auto;
+            min-height: calc(100vh - 40px);
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 50px rgba(0,0,0,0.3);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        
+        header {
+            grid-area: header;
+            background: linear-gradient(135deg, #FF1493 0%, #FF69B4 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        nav {
+            grid-area: nav;
+            background: linear-gradient(135deg, #32CD32 0%, #228B22 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        aside {
+            grid-area: aside;
+            background: linear-gradient(180deg, #FFD700 0%, #FFA500 100%);
+            padding: 30px 25px;
+            border-right: 4px solid #FF8C00;
+        }
+        
+        main {
+            grid-area: main;
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6e6fa 100%);
+            padding: 35px;
+        }
+        
+        footer {
+            grid-area: footer;
+            background: linear-gradient(135deg, #2F4F4F 0%, #000000 100%);
+            color: white;
+            padding: 30px 25px;
+            text-align: center;
+        }
+        
+        .menu-dinamico {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            list-style: none;
+            padding: 0 25px;
+        }
+        
+        .menu-dinamico a {
+            display: block;
+            padding: 14px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.4s ease;
+            font-weight: 600;
+            border: 2px solid transparent;
+        }
+        
+        .menu-dinamico a:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .sobre-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .valores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .valor-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #FF1493;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .valor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .valor-icone {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .aside-content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 2em;
+            color: #2F4F4F;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #FF1493;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            font-size: 1.5em;
+            color: #2F4F4F;
+            margin-bottom: 15px;
+        }
+        
+        ul {
+            padding-left: 25px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        mark {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            padding: 4px 8px;
+            border-radius: 6px;
+            color: #2F4F4F;
+            font-weight: 600;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #32CD32, #228B22);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(50, 205, 50, 0.4);
+        }
+
+        .galeria-container {
+            margin-top: 40px;
+        }
+        
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .galeria-item {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            height: 200px;
+            position: relative;
+        }
+        
+        .galeria-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .galeria-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .missao-visao {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .missao-card, .visao-card {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #32CD32;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .visao-card {
+            border-left-color: #FF1493;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-areas: 
+                    "header"
+                    "nav"
+                    "main"
+                    "aside"
+                    "footer";
+                grid-template-columns: 1fr;
+            }
+            
+            .missao-visao {
+                grid-template-columns: 1fr;
+            }
+            
+            .valores-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .menu-dinamico {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .menu-dinamico a {
+                width: 200px;
+                text-align: center;
+            }
+
+            .galeria-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+    </style>
 </head>
-<body style="background-color: #fffacd; color: #333; font-family: Arial, sans-serif;">
-    <a href="index.html" style="color: #800080; font-weight: bold; text-decoration: none;">Voltar para o Index</>    <h1 style="color: #ff6347;">Sobre Nós</h1>
-    <p>Informações sobre a empresa...</p>
-
-    <section>
-        <h2>Visão</h2>
-        <p>Ser a principal referência em alimentos e bebidas saudáveis, oferecendo produtos de alta qualidade que promovam bem-estar e satisfação para nossos clientes.</p>
-    </section>
-
-    <section>
-        <h2>Missão</h2>
-        <p>Proporcionar experiências únicas e saudáveis através de sucos naturais, dindins refrescantes e sanduíches naturais, sempre priorizando ingredientes frescos e um atendimento excepcional.</p>
-    </section>
-
-    <section>
-        <h2>Valores</h2>
-        <ul>
-            <li><strong>Qualidade:</strong> Garantir produtos feitos com os melhores ingredientes.</li>
-            <li><strong>Saúde:</strong> Promover escolhas alimentares saudáveis e equilibradas.</li>
-            <li><strong>Inovação:</strong> Buscar constantemente novas ideias para surpreender nossos clientes.</li>
-            <li><strong>Sustentabilidade:</strong> Respeitar o meio ambiente em todas as etapas do nosso processo.</li>
-            <li><strong>Compromisso:</strong> Priorizar a satisfação e o bem-estar dos nossos clientes.</li>
-        </ul>
-    </section>
-
-    <hr>
-
-    <h2>Galeria de Mídias</h2>
-
-    <!-- Imagem -->
-    <h3>Imagem</h3>
-    <img src="https://via.placeholder.com/300" alt="Imagem de exemplo" width="300">
-
-    <!-- Vídeo -->
-    <h3>Vídeo</h3>
-    <video controls width="400">
-        <source src="video-exemplo.mp4" type="video/mp4">
-        Seu navegador não suporta a reprodução de vídeos.
-    </video>
-
-    <!-- Áudio -->
-    <h3>Áudio</h3>
-    <audio controls>
-        <source src="audio-exemplo.mp3" type="audio/mpeg">
-        Seu navegador não suporta a reprodução de áudio.
-    </audio>
+<body>
+    <div class="container">
+        <header>
+            <!-- CSS Inline -->
+            <h1 style="text-shadow: 3px 3px 6px rgba(0,0,0,0.3); font-size: 3em; letter-spacing: 1px;">
+                <mark style="background: linear-gradient(135deg, #FFD700, #FFA500); padding: 10px 20px; border-radius: 10px;">Sobre Nós</mark>
+            </h1>
+            <p style="font-size: 1.3em; margin-top: 10px; font-weight: 300; opacity: 0.9;">Conheça a história e os valores da Natural Foods</p>
+        </header>
+        
+        <nav>
+            <ul class="menu-dinamico">
+                <li><a href="indexxxxxx.html" style="background: rgba(255,255,255,0.15);">🏠 Página Inicial</a></li>
+                <li><a href="curriculo.html" style="background: rgba(255,255,255,0.15);">📄 Currículo</a></li>
+                <li><a href="cadastro.html" style="background: rgba(255,255,255,0.15);">📝 Cadastro</a></li>
+                <li><a href="sobre.html" style="background: rgba(255,255,255,0.4); font-weight: 700;">👨‍💼 Sobre</a></li>
+                <li><a href="produtos.html" style="background: rgba(255,255,255,0.15);">📦 Produtos</a></li>
+                <li><a href="minhasparceirias.html" style="background: rgba(255,255,255,0.15);">🤝 Parceiros</a></li>
+                <li><a href="formulario.html" style="background: rgba(255,255,255,0.15);">📋 Formulário</a></li>
+            </ul>
+        </nav>
+        
+        <aside>
+            <div class="aside-content" style="border-left: 5px solid #32CD32;">
+                <h3 style="color: #228B22;">🏆 Nossa História</h3>
+                <p>Fundada em 2018, a Natural Foods nasceu do sonho de oferecer alimentação saudável e saborosa para todos.</p>
+                <p style="margin-top: 10px; color: #666;">🌱 Começamos com uma pequena barraca de sucos e hoje somos referência em alimentação natural.</p>
+            </div>
+            
+            <div class="aside-content" style="border-left: 5px solid #FF1493;">
+                <h3 style="color: #FF1493;">📈 Números</h3>
+                <ul style="color: #555;">
+                    <li>✅ 5 anos no mercado</li>
+                    <li>🏪 12 lojas físicas</li>
+                    <li>👥 50+ colaboradores</li>
+                    <li>⭐ 4.9 avaliação média</li>
+                    <li>🎯 10.000+ clientes satisfeitos</li>
+                </ul>
+            </div>
+            
+            <div class="aside-content" style="border-left: 5px solid #FFD700;">
+                <h3 style="color: #FF8C00;">🎯 Diferenciais</h3>
+                <p style="color: #555;">✨ Ingredientes 100% naturais<br>
+                   🚚 Entrega expressa<br>
+                   💚 Compromisso ambiental<br>
+                   🏆 Qualidade certificada<br>
+                   😊 Satisfação garantida</p>
+            </div>
+        </aside>
+        
+        <main>
+            <div class="sobre-container">
+                <div class="missao-visao">
+                    <div class="visao-card">
+                        <h2>👁️ Visão</h2>
+                        <p>Ser a principal referência em alimentos e bebidas saudáveis, oferecendo produtos de alta qualidade que promovam bem-estar e satisfação para nossos clientes.</p>
+                        <p style="margin-top: 15px; font-style: italic; color: #666;">"Queremos ser a primeira escolha quando o assunto é alimentação saudável e saborosa."</p>
+                    </div>
+                    
+                    <div class="missao-card">
+                        <h2>🎯 Missão</h2>
+                        <p>Proporcionar experiências únicas e saudáveis através de sucos naturais, dindins refrescantes e sanduíches naturais, sempre priorizando ingredientes frescos e um atendimento excepcional.</p>
+                        <p style="margin-top: 15px; font-style: italic; color: #666;">"Cada produto é feito com cuidado e dedicação para oferecer o melhor."</p>
+                    </div>
+                </div>
+                
+                <h2>💎 Nossos Valores</h2>
+                
+                <div class="valores-grid">
+                    <div class="valor-card">
+                        <div class="valor-icone">⭐</div>
+                        <h3>Qualidade</h3>
+                        <p>Garantir produtos feitos com os melhores ingredientes, desde a seleção até a entrega final.</p>
+                    </div>
+                    
+                    <div class="valor-card">
+                        <div class="valor-icone">💚</div>
+                        <h3>Saúde</h3>
+                        <p>Promover escolhas alimentares saudáveis e equilibradas que contribuam para o bem-estar.</p>
+                    </div>
+                    
+                    <div class="valor-card">
+                        <div class="valor-icone">🚀</div>
+                        <h3>Inovação</h3>
+                        <p>Buscar constantemente novas ideias e sabores para surpreender e encantar nossos clientes.</p>
+                    </div>
+                    
+                    <div class="valor-card">
+                        <div class="valor-icone">🌍</div>
+                        <h3>Sustentabilidade</h3>
+                        <p>Respeitar o meio ambiente em todas as etapas do nosso processo produtivo e operacional.</p>
+                    </div>
+                    
+                    <div class="valor-card">
+                        <div class="valor-icone">🤝</div>
+                        <h3>Compromisso</h3>
+                        <p>Priorizar a satisfação e o bem-estar dos nossos clientes acima de tudo.</p>
+                    </div>
+                    
+                    <div class="valor-card">
+                        <div class="valor-icone">👥</div>
+                        <h3>Comunidade</h3>
+                        <p>Contribuir positivamente para as comunidades onde estamos inseridos.</p>
+                    </div>
+                </div>
+                
+                <div class="galeria-container">
+                    <h2>📸 Conheça Nossa Equipe</h2>
+                    <div class="galeria-grid">
+                        <div class="galeria-item">
+                            <img src="https://images.unsplash.com/photo-1556157382-2eda5d4d4c2b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" 
+                                 alt="Nossa equipe em ação">
+                        </div>
+                        <div class="galeria-item">
+                            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" 
+                                 alt="Preparo dos produtos">
+                        </div>
+                        <div class="galeria-item">
+                            <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" 
+                                 alt="Ambiente da loja">
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="indexxxxxx.html" class="back-link" style="margin-top: 30px; padding: 15px 30px; font-size: 1.1em;">
+                    ← Voltar para a Página Inicial
+                </a>
+            </div>
+        </main>
+        
+        <footer>
+            <p style="font-size: 1.2em; margin-bottom: 10px; font-weight: 300;">
+                &copy; 2025 Natural Foods. Todos os direitos reservados.
+            </p>
+            <p style="opacity: 0.9; font-size: 0.9em;">
+                Alimentação Saudável • Qualidade de Vida • Sustentabilidade • Inovação
+            </p>
+        </footer>
+    </div>
 </body>
 </html>

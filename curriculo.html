@@ -3,52 +3,620 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Currículo</title>
+    <title>Currículo - Jhon Lucas</title>
+    
+    <!-- CSS Externo -->
+    <link rel="stylesheet" href="estilos.css">
+    
+    <!-- CSS Incorporado -->
+    <style>
+        /* Reset e configurações gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        /* Layout principal */
+        .container {
+            display: grid;
+            grid-template-areas: 
+                "header header"
+                "nav nav"
+                "aside main"
+                "footer footer";
+            grid-template-columns: 320px 1fr;
+            grid-template-rows: auto auto 1fr auto;
+            min-height: calc(100vh - 40px);
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 50px rgba(0,0,0,0.3);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        
+        /* Header */
+        header {
+            grid-area: header;
+            background: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Navegação */
+        nav {
+            grid-area: nav;
+            background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        /* Aside */
+        aside {
+            grid-area: aside;
+            background: linear-gradient(180deg, #ff9a00 0%, #ff6a00 100%);
+            padding: 30px 25px;
+            min-height: 600px;
+            border-right: 4px solid #ff3c00;
+        }
+        
+        /* Main */
+        main {
+            grid-area: main;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        /* Footer */
+        footer {
+            grid-area: footer;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px 25px;
+            text-align: center;
+        }
+        
+        /* Menu dinâmico */
+        .menu-dinamico {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            list-style: none;
+            padding: 0 25px;
+        }
+        
+        .menu-dinamico li {
+            position: relative;
+        }
+        
+        .menu-dinamico a {
+            display: block;
+            padding: 14px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.4s ease;
+            font-weight: 600;
+            border: 2px solid transparent;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+        }
+        
+        .menu-dinamico a:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Seções de conteúdo */
+        .content-section {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+            border-left: 6px solid #FF416C;
+            transition: transform 0.3s ease;
+        }
+        
+        .content-section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .content-section:nth-child(2) {
+            border-left-color: #00b09b;
+        }
+        
+        .content-section:nth-child(3) {
+            border-left-color: #ff9a00;
+        }
+        
+        .content-section:nth-child(4) {
+            border-left-color: #1e3c72;
+        }
+        
+        /* Perfil */
+        .perfil {
+            text-align: center;
+            padding: 30px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .perfil::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        .perfil-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .perfil-img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 6px solid white;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5em;
+            color: white;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        /* Listas */
+        ul {
+            padding-left: 25px;
+        }
+        
+        li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 10px;
+        }
+        
+        li::before {
+            content: '✦';
+            color: #FF416C;
+            font-weight: bold;
+            position: absolute;
+            left: -20px;
+            font-size: 1.2em;
+        }
+        
+        /* Galeria */
+        .galeria {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-left: 6px solid #00b09b;
+        }
+        
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .galeria-item {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .galeria-item:hover {
+            transform: scale(1.08) rotate(2deg);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+        
+        .galeria-item img, .galeria-item video {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        /* Aside content */
+        .aside-content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            transition: transform 0.3s ease;
+        }
+        
+        .aside-content:hover {
+            transform: translateX(5px);
+        }
+        
+        /* Títulos */
+        h1, h2, h3 {
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            font-size: 2.8em;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.4);
+            position: relative;
+            z-index: 1;
+            letter-spacing: 1px;
+        }
+        
+        h2 {
+            font-size: 2.2em;
+            background: linear-gradient(135deg, #FF416C, #FF4B2B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #ff9a00;
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(135deg, #FF416C, #FF4B2B);
+        }
+        
+        h3 {
+            font-size: 1.5em;
+            color: #1e3c72;
+            position: relative;
+            padding-bottom: 8px;
+        }
+        
+        h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: #ff9a00;
+        }
+        
+        h4 {
+            font-size: 1.3em;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 280px 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-areas: 
+                    "header"
+                    "nav"
+                    "main"
+                    "aside"
+                    "footer";
+                grid-template-columns: 1fr;
+                border-radius: 15px;
+            }
+            
+            .menu-dinamico {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .menu-dinamico a {
+                width: 220px;
+                text-align: center;
+            }
+            
+            aside {
+                border-right: none;
+                border-top: 4px solid #ff3c00;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            h2 {
+                font-size: 1.8em;
+            }
+        }
+        
+        /* Animações */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .perfil-img {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Elementos decorativos */
+        .decorative-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .circle-1 {
+            width: 100px;
+            height: 100px;
+            top: -30px;
+            right: -30px;
+        }
+        
+        .circle-2 {
+            width: 150px;
+            height: 150px;
+            bottom: -50px;
+            left: -50px;
+        }
+    </style>
 </head>
-<body style="background-color: #fffacd; color: #333; font-family: Arial, sans-serif;">
-    <a href="index.html" style="color: #800080; font-weight: bold; text-decoration: none;">Voltar para o Index</a>
-
-    <h1 style="color: #ff6347;">Currículo</h1>
-    <h4>Jhon Lucas, 190 anos, viúvo, Rua 666 Casa do Caralho, 859915600666</h4>
-
-    <h2 style="color: #ff6347;">Objetivo</h2>
-    <p>Enriquecer e gastar tudo</p>
-
-    <h2 style="color: #ff6347;">Formação</h2>
-    <ul>
-        <li>Especialista no amor</li>
-        <li>Leio mão e cartas de tarô</li>
-        <li>Psicólogo de gente com falta de sanidade</li>
-    </ul>
-
-    <h2 style="color: #ff6347;">Cursos e Treinamentos</h2>
-    <ul>
-        <li>Psicologia de doido</li>
-        <li>Especialista em vender amor</li>
-        <li>Leio mão de gente</li>
-    </ul>
-
-    <hr>
-
-    <h2 style="color: #ff6347;">Galeria de Mídias</h2>
-
-    <!-- Imagem -->
-    <h3 style="color: #ff6347;">Imagem</h3>
-    <img src="https://via.placeholder.com/300" alt="Imagem de exemplo" width="300">
-
-    <!-- Vídeo -->
-    <h3 style="color: #ff6347;">Vídeo</h3>
-    <video controls width="400">
-        <source src="video-exemplo.mp4" type="video/mp4">
-        Seu navegador não suporta a reprodução de vídeos.
-    </video>
-
-    <!-- Áudio -->
-    <h3 style="color: #ff6347;">Áudio</h3>
-    <audio controls>
-        <source src="audio-exemplo.mp3" type="audio/mpeg">
-        Seu navegador não suporta a reprodução de áudio.
-    </audio>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <!-- CSS Inline -->
+                <h1 style="font-family: 'Georgia', serif; letter-spacing: 2px; text-shadow: 4px 4px 8px rgba(0,0,0,0.5);">
+                    Currículo Profissional
+                </h1>
+                <p style="font-size: 1.3em; margin-top: 15px; opacity: 0.95; font-weight: 300;">
+                    Conheça minha trajetória e habilidades únicas
+                </p>
+            </div>
+            <div class="decorative-circle circle-1"></div>
+            <div class="decorative-circle circle-2"></div>
+        </header>
+        
+        <!-- Navegação -->
+        <nav>
+            <ul class="menu-dinamico">
+                <li><a href="indexxxxxx.html" style="background: rgba(255,255,255,0.25);">🏠 Página Inicial</a></li>
+                <li><a href="cadastro.html">📝 Cadastro</a></li>
+                <li><a href="sobre.html">👨‍💼 Sobre</a></li>
+                <li><a href="produtos.html">📦 Produtos</a></li>
+                <li><a href="minhasparceirias.html">🤝 Parceiros</a></li>
+                <li><a href="tabela.html">📊 Tabela</a></li>
+                <li><a href="formulario.html">📋 Formulário</a></li>
+            </ul>
+        </nav>
+        
+        <!-- Aside -->
+        <aside>
+            <div class="aside-content">
+                <h3 style="color: #1e3c72; border-bottom: 3px solid #FF416C; padding-bottom: 12px;">
+                    🎯 Habilidades Especiais
+                </h3>
+                <ul style="margin-top: 20px; list-style: none; padding-left: 0;">
+                    <li style="padding: 12px 0; border-bottom: 2px dashed rgba(255,154,0,0.3); display: flex; align-items: center;">
+                        <span style="margin-right: 10px;">🔮</span> Leitura de mão avançada
+                    </li>
+                    <li style="padding: 12px 0; border-bottom: 2px dashed rgba(255,154,0,0.3); display: flex; align-items: center;">
+                        <span style="margin-right: 10px;">🎴</span> Tarô e cartomancia profissional
+                    </li>
+                    <li style="padding: 12px 0; border-bottom: 2px dashed rgba(255,154,0,0.3); display: flex; align-items: center;">
+                        <span style="margin-right: 10px;">🧠</span> Psicologia aplicada prática
+                    </li>
+                    <li style="padding: 12px 0; border-bottom: 2px dashed rgba(255,154,0,0.3); display: flex; align-items: center;">
+                        <span style="margin-right: 10px;">💖</span> Consultoria emocional personalizada
+                    </li>
+                    <li style="padding: 12px 0; display: flex; align-items: center;">
+                        <span style="margin-right: 10px;">🌟</span> Especialista em relações complexas
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="aside-content">
+                <h3 style="color: #1e3c72; border-bottom: 3px solid #00b09b; padding-bottom: 12px;">
+                    📞 Contato
+                </h3>
+                <ul style="margin-top: 20px; list-style: none; padding-left: 0;">
+                    <li style="padding: 10px 0; display: flex; align-items: center;">
+                        <span style="margin-right: 12px; font-size: 1.2em;">📱</span> 
+                        <strong>(85) 99156-0066</strong>
+                    </li>
+                    <li style="padding: 10px 0; display: flex; align-items: center;">
+                        <span style="margin-right: 12px; font-size: 1.2em;">✉️</span> 
+                        jhon.lucas@hotmail.com
+                    </li>
+                    <li style="padding: 10px 0; display: flex; align-items: center;">
+                        <span style="margin-right: 12px; font-size: 1.2em;">📍</span> 
+                        Rua 666 Casa do Aralho
+                    </li>
+                    <li style="padding: 10px 0; display: flex; align-items: center;">
+                        <span style="margin-right: 12px; font-size: 1.2em;">👨‍💼</span> 
+                        190 anos, viúvo
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="aside-content">
+                <h3 style="color: #1e3c72; border-bottom: 3px solid #ff9a00; padding-bottom: 12px;">
+                    ⏰ Disponibilidade
+                </h3>
+                <div style="margin-top: 20px; line-height: 1.8;">
+                    <div style="padding: 8px 0; display: flex; align-items: center;">
+                        <span style="margin-right: 10px;">🕗</span> Segunda a Sexta: 8h às 18h
+                    </div>
+                    <div style="padding: 8px 0; display: flex; align-items: center;">
+                        <span style="margin-right: 10px;">🕘</span> Sábados: 9h às 14h
+                    </div>
+                    <div style="padding: 8px 0; display: flex; align-items: center;">
+                        <span style="margin-right: 10px;">💻</span> Atendimento online disponível
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main>
+            <!-- Perfil -->
+            <div class="perfil">
+                <div class="perfil-content">
+                    <div class="perfil-img">
+                        JL
+                    </div>
+                    <h2 style="color: white; margin-bottom: 8px; font-size: 2.4em;">Jhon Lucas</h2>
+                    <h4 style="color: rgba(255,255,255,0.95); font-weight: 400; font-size: 1.4em;">
+                        Especialista em Relações Humanas e Desenvolvimento Pessoal
+                    </h4>
+                </div>
+            </div>
+            
+            <!-- Objetivo -->
+            <div class="content-section">
+                <h2>🎯 Objetivo Profissional</h2>
+                <p style="font-size: 1.15em; line-height: 1.8; text-align: justify;">
+                    Busco oportunidades desafiadoras para aplicar minhas habilidades únicas em leitura de mão, 
+                    tarô e psicologia prática, ajudando pessoas a encontrarem seu caminho emocional e profissional. 
+                    Com mais de 100 anos de experiência, meu objetivo é enriquecer vidas através do autoconhecimento 
+                    e, consequentemente, alcançar sucesso financeiro e realização pessoal tanto para meus clientes 
+                    quanto para mim mesmo.
+                </p>
+            </div>
+            
+            <!-- Formação -->
+            <div class="content-section">
+                <h2>📚 Formação Acadêmica</h2>
+                <ul>
+                    <li><strong>Especialista no amor </strong> - Universidade da Vida (1990-2024)<br>
+                        <em style="color: #666;">Especialização em relações humanas e emocionais</em></li>
+                    <li><strong>Leitura de Mão e Cartas de Tarô e aconselhamento amoroso </strong> - Escola do Inexplicável (1985-1990)<br>
+                        <em style="color: #666;">Métodos avançados de leitura e interpretação</em></li>
+                    <li><strong>Psicólogo de Gente com Falta de Sanidade e Equilíbrio </strong> - Instituto das Mentes Complexas (1975-1985)<br>
+                        <em style="color: #666;">Abordagem prática para mentes incomuns</em></li>
+                </ul>
+            </div>
+            
+            <!-- Cursos -->
+            <div class="content-section">
+                <h2>🎓 Cursos e Treinamentos</h2>
+                <ul>
+                    <li><strong>Psicologia do Incomum</strong> - 200 horas (2020)<br>
+                        <em style="color: #666;">Certificação em abordagens não convencionais</em></li>
+                    <li><strong>Especialista em Aconselhamento Amoroso</strong> - Curso Avançado (2018)<br>
+                        <em style="color: #666;">Técnicas de persuasão emocional</em></li>
+                    <li><strong>Leitura de Mão Aplicada</strong> - Método Prático (2015)<br>
+                        <em style="color: #666;">Interpretação de linhas e sinais palmares</em></li>
+                    <li><strong>Terapia das Emoções Complexas</strong> - Pós-graduação (2010)<br>
+                        <em style="color: #666;">Especialização em emoções profundas</em></li>
+                </ul>
+            </div>
+            
+            <!-- Galeria de Mídias -->
+            <div class="galeria">
+                <h2>🖼️ Galeria de Mídias</h2>
+                
+                <h3>Certificados e Reconhecimentos</h3>
+                <div class="galeria-grid">
+                    <div class="galeria-item">
+                        <img src="https://via.placeholder.com/300x200/FF416C/FFFFFF?text=Certificado+Especialização" 
+                             alt="Certificado de Especialização">
+                    </div>
+                    <div class="galeria-item">
+                        <img src="https://via.placeholder.com/300x200/00b09b/FFFFFF?text=Diploma+Honra+Mérito" 
+                             alt="Diploma de Honra ao Mérito">
+                    </div>
+                    <div class="galeria-item">
+                        <img src="https://via.placeholder.com/300x200/ff9a00/FFFFFF?text=Reconhecimento+Profissional" 
+                             alt="Reconhecimento Profissional">
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 30px;">🎥 Apresentação Pessoal</h3>
+                <div class="galeria-item">
+                    <video controls style="width: 100%; height: 300px; object-fit: cover;">
+                        <source src="video-exemplo.mp4" type="video/mp4">
+                        Seu navegador não suporta a reprodução de vídeos.
+                    </video>
+                </div>
+                
+                <h3 style="margin-top: 30px;">🎧 Depoimento em Áudio</h3>
+                <div style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 20px; border-radius: 12px; border-left: 4px solid #00b09b;">
+                    <audio controls style="width: 100%;">
+                        <source src="audio-exemplo.mp3" type="audio/mpeg">
+                        Seu navegador não suporta a reprodução de áudio.
+                    </audio>
+                    <p style="margin-top: 15px; font-style: italic; color: #666; text-align: center;">
+                        "Depoimento emocionante de cliente satisfeito com os serviços prestados e transformação pessoal alcançada."
+                    </p>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer>
+            <p style="font-size: 1.2em; margin-bottom: 12px; font-weight: 600;">
+                &copy; 2025 Jhon Lucas. Todos os direitos reservados.
+            </p>
+            <p style="opacity: 0.9; font-size: 1.1em;">
+                Especialista em Relações Humanas • Leitor de Mão • Psicólogo Prático • Consultor Emocional
+            </p>
+        </footer>
+    </div>
 </body>
 </html>
-

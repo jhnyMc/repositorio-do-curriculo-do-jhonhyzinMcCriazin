@@ -3,46 +3,496 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produto do Grau 2</title>
+    <title>Produto do Grau 2 - Dindin Refrescante</title>
+    
+    <!-- CSS Externo -->
+    <link rel="stylesheet" href="estilos.css">
+    
+    <!-- CSS Incorporado -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-areas: 
+                "header header"
+                "nav nav"
+                "aside main"
+                "footer footer";
+            grid-template-columns: 300px 1fr;
+            grid-template-rows: auto auto 1fr auto;
+            min-height: calc(100vh - 40px);
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 50px rgba(0,0,0,0.3);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        
+        header {
+            grid-area: header;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        nav {
+            grid-area: nav;
+            background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        aside {
+            grid-area: aside;
+            background: linear-gradient(180deg, #FFE66D 0%, #FFD166 100%);
+            padding: 30px 25px;
+            border-right: 4px solid #FF9E6D;
+        }
+        
+        main {
+            grid-area: main;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 35px;
+        }
+        
+        footer {
+            grid-area: footer;
+            background: linear-gradient(135deg, #1A535C 0%, #0D3B45 100%);
+            color: white;
+            padding: 30px 25px;
+            text-align: center;
+        }
+        
+        .menu-dinamico {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            list-style: none;
+            padding: 0 25px;
+        }
+        
+        .menu-dinamico a {
+            display: block;
+            padding: 14px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.4s ease;
+            font-weight: 600;
+            border: 2px solid transparent;
+        }
+        
+        .menu-dinamico a:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .produto-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .produto-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .produto-imagem {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin: 20px auto;
+            display: block;
+        }
+        
+        .produto-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        
+        .info-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #4ECDC4;
+        }
+        
+        .preco {
+            font-size: 2.5em;
+            color: #4ECDC4;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .botao-comprar {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .botao-comprar:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
+        }
+        
+        .aside-content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 2em;
+            color: #1A535C;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #4ECDC4;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            font-size: 1.5em;
+            color: #1A535C;
+            margin-bottom: 15px;
+        }
+        
+        ul {
+            padding-left: 25px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        mark {
+            background: linear-gradient(135deg, #FFE66D, #FFD166);
+            padding: 4px 8px;
+            border-radius: 6px;
+            color: #1A535C;
+            font-weight: 600;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        .sabor-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .sabor-icone {
+            font-size: 2em;
+            margin-right: 15px;
+        }
+
+        /* GALERIA CORRIGIDA - TODAS AS FOTOS COM MESMO TAMANHO */
+        .galeria-container {
+            margin-top: 40px;
+        }
+        
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .galeria-item {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            height: 200px; /* ALTURA FIXA PARA TODAS */
+            position: relative;
+        }
+        
+        .galeria-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .galeria-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-areas: 
+                    "header"
+                    "nav"
+                    "main"
+                    "aside"
+                    "footer";
+                grid-template-columns: 1fr;
+            }
+            
+            .produto-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .menu-dinamico {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .menu-dinamico a {
+                width: 200px;
+                text-align: center;
+            }
+
+            .galeria-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+    </style>
 </head>
-<body style="background-color: #fffacd; color: #333; font-family: Arial, sans-serif;">
-    <a href="index.html" style="color: #800080; font-weight: bold; text-decoration: none;">Voltar para o Index</a>
-
-    <h1 style="color: #ff6347;">Produto do Grau 2</h1>
-    <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <title>Produto: Dindin Refrescante</title>
-</head>
-<body style="background-color: yellow; color: black; font-family: Arial, sans-serif;">
-
-  <h1><mark>Dindin Refrescante</mark></h1>
-
-  <img src="dindin.jpg" alt="Imagem do Dindin Refrescante" style="max-width: 400px; display: block; margin-bottom: 20px; border: 2px solid purple; border-radius: 8px;" />
-
-  <section>
-    <h2>Descrição do Produto</h2>
-    <p>Nosso <strong>Dindin</strong> é uma opção <ins>refrescante</ins> e saborosa, disponível em diversos sabores naturais, ideal para o calor.</p>
-  </section>
-
-  <section>
-    <h2>Sabores Disponíveis</h2>
-    <ul>
-      <li><mark>Manga</mark></li>
-      <li>Morango</li>
-      <li><small>Limão</small></li>
-      <li>Abacaxi com hortelã</li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>Preço</h2>
-    <p><strong>R$ 5,00</strong> por unidade</p>
-  </section>
-
-  
+<body>
+    <div class="container">
+        <header>
+            <!-- CSS Inline -->
+            <h1 style="text-shadow: 3px 3px 6px rgba(0,0,0,0.3);">
+                <mark>Dindin Refrescante</mark>
+            </h1>
+            <p style="font-size: 1.3em; margin-top: 10px;">O picolé geladinho que refresca seu dia!</p>
+        </header>
+        
+        <nav>
+            <ul class="menu-dinamico">
+                <li><a href="indexxxxxx.html">🏠 Página Inicial</a></li>
+                <li><a href="curriculo.html">📄 Currículo</a></li>
+                <li><a href="cadastro.html">📝 Cadastro</a></li>
+                <li><a href="sobre.html">👨‍💼 Sobre</a></li>
+                <li><a href="produtos.html">📦 Todos Produtos</a></li>
+                <li><a href="produtodograu1.html">🍹 Suco Natural</a></li>
+                <li><a href="minhasparceirias.html">🤝 Parceiros</a></li>
+                <li><a href="formulario.html">📋 Formulário</a></li>
+            </ul>
+        </nav>
+        
+        <aside>
+            <div class="aside-content">
+                <h3>🍭 Sabores em Destaque</h3>
+                <div class="sabor-item">
+                    <span class="sabor-icone">🥭</span>
+                    <div>
+                        <strong>Manga Tropical</strong>
+                        <br><small>Doce e refrescante</small>
+                    </div>
+                </div>
+                <div class="sabor-item">
+                    <span class="sabor-icone">🍓</span>
+                    <div>
+                        <strong>Morango Silvestre</strong>
+                        <br><small>Intenso e natural</small>
+                    </div>
+                </div>
+                <div class="sabor-item">
+                    <span class="sabor-icone">🍋</span>
+                    <div>
+                        <strong>Limão Siciliano</strong>
+                        <br><small>Azedinho e gelado</small>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="aside-content">
+                <h3>❄️ Características</h3>
+                <ul>
+                    <li>🧊 Picolé geladinho</li>
+                    <li>💧 Refrescante instantâneo</li>
+                    <li>🌿 Ingredientes naturais</li>
+                    <li>⚡ Prático para levar</li>
+                    <li>😊 Sabor inigualável</li>
+                </ul>
+            </div>
+            
+            <div class="aside-content">
+                <h3>🏆 Por que Escolher?</h3>
+                <p>⭐ Mais vendido do verão<br>
+                   🥇 Feito com frutas frescas<br>
+                   👍 Perfeito para o calor</p>
+            </div>
+        </aside>
+        
+        <main>
+            <div class="produto-container">
+                <div class="produto-header">
+                    <!-- Imagem CORRETA de dindin/picolé -->
+                    <img src="https://images.unsplash.com/photo-1580915411954-282cb1b0d780?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
+                         alt="Dindin Refrescante - Picolé de Frutas" class="produto-imagem">
+                </div>
+                
+                <div class="produto-grid">
+                    <div>
+                        <div class="info-section">
+                            <h2>📖 O que é Dindin?</h2>
+                            <p>Nosso <strong>Dindin</strong> é um delicioso <ins>picolé de frutas</ins> natural, 
+                            a opção perfeita para se refrescar nos dias quentes. 
+                            Feito com polpa de frutas selecionadas e sem conservantes artificiais.</p>
+                            <p style="margin-top: 15px; font-style: italic; color: #666;">
+                                🧊 <strong>Dindin</strong> = Picolé geladinho de frutas naturais!
+                            </p>
+                        </div>
+                        
+                        <div class="info-section">
+                            <h2>🍓 Sabores Disponíveis</h2>
+                            <div class="sabor-item">
+                                <span class="sabor-icone">🥭</span>
+                                <div><strong><mark>Manga</mark></strong> - Doce e tropical, feito com manga madura</div>
+                            </div>
+                            <div class="sabor-item">
+                                <span class="sabor-icone">🍓</span>
+                                <div><strong>Morango</strong> - Intenso e frutado, com morangos frescos</div>
+                            </div>
+                            <div class="sabor-item">
+                                <span class="sabor-icone">🍋</span>
+                                <div><strong><small>Limão</small></strong> - Refrescante e azedinho, perfeito para o calor</div>
+                            </div>
+                            <div class="sabor-item">
+                                <span class="sabor-icone">🍍</span>
+                                <div><strong>Abacaxi com hortelã</strong> - Exótico e fresco, combinação incrível</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="info-section">
+                            <h2>🍽️ Como Aproveitar</h2>
+                            <ul>
+                                <li>🌡️ Ideal para dias quentes</li>
+                                <li>⏱️ Derrete rápido - aproveite!</li>
+                                <li>🎉 Sucesso em festas infantis</li>
+                                <li>🏖️ Companheiro de praia e piscina</li>
+                                <li>🧺 Leve para piqueniques</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-section">
+                            <h2>💰 Preço Especial</h2>
+                            <div class="preco">R$ 5,00</div>
+                            <p style="text-align: center; color: #666;">por unidade (picolé)</p>
+                            
+                            <p style="text-align: center; margin: 15px 0; color: #4ECDC4; font-weight: 600;">
+                                🎊 Promoção: 3 dindins por R$ 12,00!
+                            </p>
+                            
+                            <button class="botao-comprar">
+                                🛒 Comprar Dindins
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- GALERIA CORRIGIDA - TODAS AS FOTOS COM MESMO TAMANHO -->
+                <div class="galeria-container">
+                    <h2>📸 Nossos Dindins - Picolés Geladinhos</h2>
+                    <div class="galeria-grid">
+                        <div class="galeria-item">
+                            <img src="https://images.unsplash.com/photo-1580915411954-282cb1b0d780?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" 
+                                 alt="Dindin de Manga">
+                        </div>
+                        <div class="galeria-item">
+                            <img src="https://images.unsplash.com/photo-1488900128323-21503983a07e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" 
+                                 alt="Dindin de Morango">
+                        </div>
+                        <div class="galeria-item">
+                            <img src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" 
+                                 alt="Dindin de Limão">
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="indexxxxxx.html" class="back-link">
+                    ← Voltar para a Página Inicial
+                </a>
+            </div>
+        </main>
+        
+        <footer>
+            <p style="font-size: 1.2em; margin-bottom: 10px;">
+                &copy; 2025 Empresa Natural. Todos os direitos reservados.
+            </p>
+            <p style="opacity: 0.9;">
+                Dindins Refrescantes • Picolés Naturais • Sabor • Frescor
+            </p>
+        </footer>
+    </div>
 </body>
 </html>
-
 

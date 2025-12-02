@@ -3,47 +3,410 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produto do Grau 1</title>
+    <title>Produto do Grau 1 - Suco Natural</title>
+    
+    <!-- CSS Externo -->
+    <link rel="stylesheet" href="estilos.css">
+    
+    <!-- CSS Incorporado -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-areas: 
+                "header header"
+                "nav nav"
+                "aside main"
+                "footer footer";
+            grid-template-columns: 300px 1fr;
+            grid-template-rows: auto auto 1fr auto;
+            min-height: calc(100vh - 40px);
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 50px rgba(0,0,0,0.3);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        
+        header {
+            grid-area: header;
+            background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        nav {
+            grid-area: nav;
+            background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        aside {
+            grid-area: aside;
+            background: linear-gradient(180deg, #FFE66D 0%, #FFD166 100%);
+            padding: 30px 25px;
+            border-right: 4px solid #FF9E6D;
+        }
+        
+        main {
+            grid-area: main;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 35px;
+        }
+        
+        footer {
+            grid-area: footer;
+            background: linear-gradient(135deg, #1A535C 0%, #0D3B45 100%);
+            color: white;
+            padding: 30px 25px;
+            text-align: center;
+        }
+        
+        .menu-dinamico {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            list-style: none;
+            padding: 0 25px;
+        }
+        
+        .menu-dinamico a {
+            display: block;
+            padding: 14px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.4s ease;
+            font-weight: 600;
+            border: 2px solid transparent;
+        }
+        
+        .menu-dinamico a:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .produto-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .produto-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .produto-imagem {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin: 20px auto;
+            display: block;
+        }
+        
+        .produto-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        
+        .info-section {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #FF6B6B;
+        }
+        
+        .preco {
+            font-size: 2.5em;
+            color: #FF6B6B;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .botao-comprar {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .botao-comprar:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+        
+        .aside-content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 2em;
+            color: #1A535C;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #FFE66D;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            font-size: 1.5em;
+            color: #1A535C;
+            margin-bottom: 15px;
+        }
+        
+        ul {
+            padding-left: 25px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        mark {
+            background: linear-gradient(135deg, #FFE66D, #FFD166);
+            padding: 4px 8px;
+            border-radius: 6px;
+            color: #1A535C;
+            font-weight: 600;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #4ECDC4, #44A08D);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-areas: 
+                    "header"
+                    "nav"
+                    "main"
+                    "aside"
+                    "footer";
+                grid-template-columns: 1fr;
+            }
+            
+            .produto-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .menu-dinamico {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .menu-dinamico a {
+                width: 200px;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
-<body style="background-color: #fffacd; color: #333; font-family: Arial, sans-serif;">
-    <a href="index.html" style="color: #800080; font-weight: bold; text-decoration: none;">Voltar para o Index</a>
-
-    <h1 style="color: #ff6347;">Produto do Grau 1</h1>
-    <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <title>Produto: Suco Natural</title>
-</head>
-<body style="background-color: yellow; color: black; font-family: Arial, sans-serif;">
-
-  <h1><mark>Suco Natural</mark></h1>
-
-  <img src="suco-natural.jpg" alt="Imagem do Suco Natural" style="max-width: 400px; display: block; margin-bottom: 20px; border: 2px solid purple; border-radius: 8px;" />
-
-  <section>
-    <h2>Descrição do Produto</h2>
-    <p>Nosso <strong>Suco Natural</strong> é feito com <ins>frutas frescas</ins> selecionadas, sem adição de açúcar, para garantir o sabor e a saúde em cada gole.</p>
-  </section>
-
-  <section>
-    <h2>Ingredientes</h2>
-    <ul>
-      <li><mark>Frutas frescas</mark> (laranja, abacaxi, morango)</li>
-      <li>Água filtrada</li>
-      <li><small>Sem conservantes ou aditivos artificiais</small></li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>Preço</h2>
-    <p><strong>R$ 7,00</strong> por copo de 300ml</p>
-  </section>
-
-  
-
+<body>
+    <div class="container">
+        <header>
+            <!-- CSS Inline -->
+            <h1 style="text-shadow: 3px 3px 6px rgba(0,0,0,0.3);">
+                <mark>Suco Natural</mark>
+            </h1>
+            <p style="font-size: 1.3em; margin-top: 10px;">Puro sabor e saúde em cada gole!</p>
+        </header>
+        
+        <nav>
+            <ul class="menu-dinamico">
+                <li><a href="indexxxxxx.html">🏠 Página Inicial</a></li>
+                <li><a href="curriculo.html">📄 Currículo</a></li>
+                <li><a href="cadastro.html">📝 Cadastro</a></li>
+                <li><a href="sobre.html">👨‍💼 Sobre</a></li>
+                <li><a href="produtos.html">📦 Todos Produtos</a></li>
+                <li><a href="produtodograu2.html">🍦 Dindin Refrescante</a></li>
+                <li><a href="minhasparceirias.html">🤝 Parceiros</a></li>
+                <li><a href="formulario.html">📋 Formulário</a></li>
+            </ul>
+        </nav>
+        
+        <aside>
+            <div class="aside-content">
+                <h3>🍹 Sabores Disponíveis</h3>
+                <ul>
+                    <li>🍊 Laranja Natural</li>
+                    <li>🍍 Abacaxi com Hortelã</li>
+                    <li>🍓 Morango Silvestre</li>
+                    <li>🍋 Limão Siciliano</li>
+                    <li>💛 Maracujá Azedinho</li>
+                </ul>
+            </div>
+            
+            <div class="aside-content">
+                <h3>⭐ Benefícios</h3>
+                <ul>
+                    <li>🌿 100% Natural</li>
+                    <li>🚫 Sem Conservantes</li>
+                    <li>💊 Rico em Vitaminas</li>
+                    <li>⚡ Fonte de Energia</li>
+                    <li>💧 Hidratante Natural</li>
+                </ul>
+            </div>
+            
+            <div class="aside-content">
+                <h3>🕒 Horário de Pedidos</h3>
+                <p>📅 Segunda a Sexta: 7h às 19h<br>
+                   🗓️ Sábados: 8h às 16h<br>
+                   🚚 Entregas em até 40min</p>
+            </div>
+        </aside>
+        
+        <main>
+            <div class="produto-container">
+                <div class="produto-header">
+                    <!-- Imagem do produto -->
+                    <img src="https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
+                         alt="Suco Natural Fresco" class="produto-imagem">
+                </div>
+                
+                <div class="produto-grid">
+                    <div>
+                        <div class="info-section">
+                            <h2>📖 Descrição do Produto</h2>
+                            <p>Nosso <strong>Suco Natural</strong> é feito com <ins>frutas frescas</ins> selecionadas, 
+                            sem adição de açúcar, para garantir o sabor e a saúde em cada gole. 
+                            Uma explosão de vitaminas e sabor natural!</p>
+                        </div>
+                        
+                        <div class="info-section">
+                            <h2>🥭 Ingredientes</h2>
+                            <ul>
+                                <li><mark>Frutas frescas</mark> (laranja, abacaxi, morango)</li>
+                                <li>💧 Água filtrada mineral</li>
+                                <li>🧊 Gelo (opcional)</li>
+                                <li><small>🚫 Sem conservantes ou aditivos artificiais</small></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="info-section">
+                            <h2>🧪 Informações Nutricionais</h2>
+                            <ul>
+                                <li>🍋 Rico em Vitamina C</li>
+                                <li>💧 Excelente hidratação</li>
+                                <li>⚡ Fonte de energia natural</li>
+                                <li>🌿 Antioxidantes naturais</li>
+                                <li>🔄 Melhora a digestão</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-section">
+                            <h2>💰 Preço</h2>
+                            <div class="preco">R$ 7,00</div>
+                            <p style="text-align: center; color: #666;">por copo de 300ml</p>
+                            
+                            <p style="text-align: center; margin: 15px 0; color: #FF6B6B; font-weight: 600;">
+                                🎊 Promoção: 2 por R$ 12,00!
+                            </p>
+                            
+                            <button class="botao-comprar">
+                                🛒 Adicionar ao Carrinho
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Galeria de fotos adicional -->
+                <div style="margin-top: 40px;">
+                    <h2>📸 Mais Fotos do Produto</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
+                        <img src="https://images.unsplash.com/photo-1570197788417-0e82375c9371?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" 
+                             alt="Suco de Laranja" style="width: 100%; border-radius: 10px;">
+                        <img src="https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" 
+                             alt="Suco Natural" style="width: 100%; border-radius: 10px;">
+                        <img src="https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" 
+                             alt="Suco Fresco" style="width: 100%; border-radius: 10px;">
+                    </div>
+                </div>
+                
+                <a href="indexxxxxx.html" class="back-link">
+                    ← Voltar para a Página Inicial
+                </a>
+            </div>
+        </main>
+        
+        <footer>
+            <p style="font-size: 1.2em; margin-bottom: 10px;">
+                &copy; 2025 Empresa Natural. Todos os direitos reservados.
+            </p>
+            <p style="opacity: 0.9;">
+                Sucos Naturais • Qualidade • Saúde • Sabor
+            </p>
+        </footer>
+    </div>
 </body>
 </html>
-
-    
-

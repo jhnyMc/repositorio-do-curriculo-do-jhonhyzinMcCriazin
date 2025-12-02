@@ -3,81 +3,436 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
+    <title>Cadastro - Nossa Empresa</title>
+    
+    <!-- CSS Externo -->
+    <link rel="stylesheet" href="estilos.css">
+    
+    <!-- CSS Incorporado -->
     <style>
+        /* Reset e configurações gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            background-color: #fffacd; /* Amarelo claro */
-            color: #333; /* Texto escuro para contraste */
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
         }
-        h1, h2, h3 {
-            color: #ff6347; /* Toque colorido - vermelho tomate */
+        
+        /* Layout principal */
+        .container {
+            display: grid;
+            grid-template-areas: 
+                "header header"
+                "nav nav"
+                "aside main"
+                "footer footer";
+            grid-template-columns: 300px 1fr;
+            grid-template-rows: auto auto 1fr auto;
+            min-height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.2);
         }
-        a {
-            color: #800080; /* Roxo */
-            font-weight: bold;
+        
+        /* Header */
+        header {
+            grid-area: header;
+            background: linear-gradient(45deg, #FF416C, #FF4B2B);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        /* Navegação */
+        nav {
+            grid-area: nav;
+            background: linear-gradient(45deg, #00b09b, #96c93d);
+            padding: 15px 0;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Aside */
+        aside {
+            grid-area: aside;
+            background: linear-gradient(180deg, #ff9a00, #ff6a00);
+            padding: 25px;
+            min-height: 500px;
+            border-right: 3px solid #ff3c00;
+        }
+        
+        /* Main */
+        main {
+            grid-area: main;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        /* Footer */
+        footer {
+            grid-area: footer;
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        /* Menu dinâmico */
+        .menu-dinamico {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            list-style: none;
+            padding: 0 20px;
+        }
+        
+        .menu-dinamico li {
+            position: relative;
+        }
+        
+        .menu-dinamico a {
+            display: block;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
             text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            border: 2px solid transparent;
         }
-        a:hover {
-            text-decoration: underline;
+        
+        .menu-dinamico a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-color: rgba(255, 255, 255, 0.5);
         }
+        
+        /* Formulário */
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-left: 5px solid #FF416C;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1e3c72;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5ee;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #FF416C;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(255, 65, 108, 0.1);
+        }
+        
         button {
-            background-color: #ff6347; /* Vermelho tomate */
+            background: linear-gradient(45deg, #FF416C, #FF4B2B);
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 65, 108, 0.3);
         }
+        
         button:hover {
-            background-color: #cd5c5c; /* Vermelho mais escuro */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 65, 108, 0.4);
+            background: linear-gradient(45deg, #FF4B2B, #FF416C);
+        }
+        
+        /* Galeria */
+        .galeria {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 5px solid #00b09b;
+        }
+        
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .galeria-item {
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .galeria-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .galeria-item img, .galeria-item video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Aside content */
+        .aside-content {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Títulos */
+        h1, h2, h3 {
+            margin-bottom: 15px;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        h2 {
+            font-size: 2em;
+            background: linear-gradient(45deg, #FF416C, #FF4B2B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff9a00;
+        }
+        
+        h3 {
+            font-size: 1.4em;
+            color: #1e3c72;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-areas: 
+                    "header"
+                    "nav"
+                    "main"
+                    "aside"
+                    "footer";
+                grid-template-columns: 1fr;
+            }
+            
+            .menu-dinamico {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .menu-dinamico a {
+                width: 200px;
+                text-align: center;
+            }
+            
+            aside {
+                border-right: none;
+                border-top: 3px solid #ff3c00;
+            }
         }
     </style>
 </head>
 <body>
-    <a href="index.html">Voltar para o Index</a>
-
-    <h1>Cadastro</h1>
-
-    <form action="/submit" method="post">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
-        <br><br>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="Digite seu email" required>
-        <br><br>
-
-        <label for="telefone">Telefone:</label>
-        <input type="tel" id="telefone" name="telefone" placeholder="Digite seu telefone">
-        <br><br>
-
-        <label for="mensagem">Mensagem:</label>
-        <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem" rows="4"></textarea>
-        <br><br>
-
-        <button type="submit">Enviar</button>
-    </form>
-
-    <hr>
-
-    <h2>Galeria de Mídias</h2>
-
-    <!-- Imagem -->
-    <h3>Imagem</h3>
-    <img src="https://via.placeholder.com/300" alt="Imagem de exemplo" width="300">
-
-    <!-- Vídeo -->
-    <h3>Vídeo</h3>
-    <video controls width="400">
-        <source src="video-exemplo.mp4" type="video/mp4">
-        Seu navegador não suporta a reprodução de vídeos.
-    </video>
-
-    <!-- Áudio -->
-    <h3>Áudio</h3>
-    <audio controls>
-        <source src="audio-exemplo.mp3" type="audio/mpeg">
-        Seu navegador não suporta a reprodução de áudio.
-    </audio>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <!-- CSS Inline -->
+            <h1 style="font-family: 'Georgia', serif; letter-spacing: 1px;">
+                Cadastro - Nossa Empresa
+            </h1>
+            <p style="font-size: 1.2em; margin-top: 10px; opacity: 0.9;">Faça parte da nossa família!</p>
+        </header>
+        
+        <!-- Navegação -->
+        <nav>
+            <ul class="menu-dinamico">
+                <li><a href="indexxxxxx.html">Página Inicial</a></li>
+                <li><a href="curriculo.html">Currículo</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="produtos.html">Produtos</a></li>
+                <li><a href="minhasparceirias.html">Parceiros</a></li>
+                <li><a href="tabela.html">Tabela</a></li>
+                <li><a href="formulario.html">Formulário</a></li>
+            </ul>
+        </nav>
+        
+        <!-- Aside -->
+        <aside>
+            <div class="aside-content">
+                <h3 style="color: #1e3c72; border-bottom: 2px solid #FF416C; padding-bottom: 8px;">
+                    Por que se cadastrar?
+                </h3>
+                <p style="margin-top: 15px; line-height: 1.6;">
+                    Ao se cadastrar em nosso site, você receberá:
+                </p>
+                <ul style="margin-top: 15px; padding-left: 20px;">
+                    <li style="padding: 5px 0;">Ofertas exclusivas</li>
+                    <li style="padding: 5px 0;">Novidades em primeira mão</li>
+                    <li style="padding: 5px 0;">Descontos especiais</li>
+                    <li style="padding: 5px 0;">Conteúdo personalizado</li>
+                </ul>
+            </div>
+            
+            <div class="aside-content">
+                <h3 style="color: #1e3c72; border-bottom: 2px solid #00b09b; padding-bottom: 8px;">
+                    Informações de Contato
+                </h3>
+                <ul style="margin-top: 15px; list-style: none; padding-left: 0;">
+                    <li style="padding: 5px 0;">📞 (11) 99999-9999</li>
+                    <li style="padding: 5px 0;">✉️ contato@empresa.com</li>
+                    <li style="padding: 5px 0;">📍 Rua Exemplo, 123 - São Paulo, SP</li>
+                </ul>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main>
+            <!-- Formulário de Cadastro -->
+            <div class="form-container">
+                <h2>Formulário de Cadastro</h2>
+                <form action="/submit" method="post">
+                    <div class="form-group">
+                        <label for="nome">Nome Completo:</label>
+                        <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Digite seu email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telefone">Telefone:</label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="Digite seu telefone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cidade">Cidade:</label>
+                        <input type="text" id="cidade" name="cidade" placeholder="Digite sua cidade">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="interesse">Interesse Principal:</label>
+                        <select id="interesse" name="interesse">
+                            <option value="">Selecione uma opção</option>
+                            <option value="sucos">Sucos Naturais</option>
+                            <option value="dindins">Dindins</option>
+                            <option value="sanduiches">Sanduíches Naturais</option>
+                            <option value="todos">Todos os Produtos</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mensagem">Mensagem:</label>
+                        <textarea id="mensagem" name="mensagem" placeholder="Escreva sua mensagem ou observações" rows="4"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit">Enviar Cadastro</button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Galeria de Mídias -->
+            <div class="galeria">
+                <h2>Galeria de Mídias</h2>
+                
+                <h3>Imagens</h3>
+                <div class="galeria-grid">
+                    <div class="galeria-item">
+                        <img src="https://via.placeholder.com/300x200/FF416C/FFFFFF?text=Produto+1" 
+                             alt="Imagem de exemplo 1">
+                    </div>
+                    <div class="galeria-item">
+                        <img src="https://via.placeholder.com/300x200/00b09b/FFFFFF?text=Produto+2" 
+                             alt="Imagem de exemplo 2">
+                    </div>
+                    <div class="galeria-item">
+                        <img src="https://via.placeholder.com/300x200/ff9a00/FFFFFF?text=Produto+3" 
+                             alt="Imagem de exemplo 3">
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 20px;">Vídeo</h3>
+                <div class="galeria-item">
+                    <video controls style="width: 100%;">
+                        <source src="video-exemplo.mp4" type="video/mp4">
+                        Seu navegador não suporta a reprodução de vídeos.
+                    </video>
+                </div>
+                
+                <h3 style="margin-top: 20px;">Áudio</h3>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <audio controls style="width: 100%;">
+                        <source src="audio-exemplo.mp3" type="audio/mpeg">
+                        Seu navegador não suporta a reprodução de áudio.
+                    </audio>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer>
+            <p style="font-size: 1.1em; margin-bottom: 10px;">
+                &copy; 2025 Nossa Empresa. Todos os direitos reservados.
+            </p>
+            <p style="opacity: 0.8;">
+                Sucos Naturais • Dindins • Sanduíches Naturais
+            </p>
+        </footer>
+    </div>
 </body>
 </html>
